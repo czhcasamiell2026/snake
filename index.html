@@ -1009,6 +1009,8 @@
     e.preventDefault();
     var d = DIRS[btn.dataset.dir];
     if (state === 'ready' || state === 'over' || state === 'win') action();
+    // 立即入队：轻点往往在下一次 step 之前就 touchend，只靠 dpadHoldDir 会被清空丢掉
+    if (state === 'running' && d) pushDir(d);
     if (d) dpadHoldDir = d;
   }, { passive: false });
 
